@@ -153,23 +153,44 @@ class Patient(models.Model):
 
 
 class Doctor(models.Model):
+    # The doctor's first name
     first_name = models.CharField(
         max_length=100,
         validators=[name_validator],
     )
+
+    # The doctor's last name
     last_name = models.CharField(
         max_length=100,
         validators=[name_validator],
     )
+
+    # Link the doctor profile to a Django user account
+    # Each user can be linked to only one doctor profile
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        related_name="doctor_profile",
+        null=True,
+        blank=True,
+    )
+
+    # The doctor's medical specialty
     specialty = models.CharField(max_length=100)
+
+    # Indicates whether the doctor is currently active
     is_active = models.BooleanField(default=True)
+
+    # Default duration of an appointment in minutes
     appointment_duration = models.PositiveIntegerField(default=30)
 
     def __str__(self):
+        # Return the doctor's full name
         return f"{self.first_name} {self.last_name}"
 
     class Meta:
         constraints = [
+            # Ensure that the appointment duration is greater than zero
             models.CheckConstraint(
                 condition=Q(appointment_duration__gt=0),
                 name="doctor_appointment_duration_positive",

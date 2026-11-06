@@ -1,0 +1,13 @@
+$kind: http-request
+url: http://127.0.0.1:8000/api/auth/token/
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"phone_number\": \"manager_test\",\r
+
+    \    \"password\": \"TestManager123!\"\r
+
+    }"
+order: 5000

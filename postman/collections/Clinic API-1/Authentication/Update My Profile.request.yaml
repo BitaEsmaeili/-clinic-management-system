@@ -1,0 +1,17 @@
+$kind: http-request
+url: http://127.0.0.1:8000/api/patients/me/
+method: PATCH
+body:
+  type: json
+  content: "{\r
+
+    \    \"phone_number\": \"09123334444\",\r
+
+    \    \"first_name\": \"Sara\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_16g5}}"
+order: 7000

@@ -6,6 +6,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model, password_validation
 from django.db import transaction
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth.models import Group
 
 from .models import (
     Patient,
@@ -130,26 +131,27 @@ class PatientRegistrationSerializer(PatientSerializer):
         # Ensure that user and patient creation happen as one transaction
         with transaction.atomic():
 
-            # Create the user account using the phone number as username
+            # Create the user account
             user = User.objects.create_user(
                 username=phone,
                 password=password
             )
 
-            # Create the patient profile and link it to the user account
+            # Assign the Patient role
+            patient_group = Group.objects.get(name="Patient")
+            user.groups.add(patient_group)
+
+            # Create the patient profile
             patient = Patient(
                 user=user,
-                **validated_data
+             **validated_data
             )
 
-            # Run model-level validation before saving
-            patient.full_clean()
-
-            # Save the patient profile to the database
-            patient.save()
+        # Validate and save the patient profile
+        patient.full_clean()
+        patient.save()
 
         return patient
-
 
 class PhoneTokenObtainPairSerializer(TokenObtainPairSerializer):
 

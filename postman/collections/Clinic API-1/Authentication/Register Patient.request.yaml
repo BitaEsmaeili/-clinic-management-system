@@ -1,0 +1,25 @@
+$kind: http-request
+url: http://127.0.0.1:8000/api/auth/register/
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"first_name\": \"Sara\",\r
+
+    \    \"last_name\": \"Ahmadi\",\r
+
+    \    \"national_code\": \"8606713066\",\r
+
+    \    \"phone_number\": \"09121112222\",\r
+
+    \    \"insurance_type\": \"NONE\",\r
+
+    \    \"sports_insurance\": false,\r
+
+    \    \"password\": \"SaraTest456!@#\",\r
+
+    \    \"password_confirm\": \"SaraTest456!@#\"\r
+
+    }"
+order: 4000

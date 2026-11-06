@@ -3,6 +3,7 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.shortcuts import get_object_or_404
+from clinic.permissions import IsClinicManagerOrReceptionist
 
 from .models import Patient, Service
 from .serializers import (
@@ -20,8 +21,8 @@ class PatientListCreateAPIView(generics.ListCreateAPIView):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
 
-    # Only admin users can access this endpoint
-    permission_classes = [IsAdminUser]
+     # Only clinic managers, receptionists, and superusers can access this endpoint
+    permission_classes = [IsClinicManagerOrReceptionist]
 
 
 # Provides API endpoints for viewing and updating the patient's own profile

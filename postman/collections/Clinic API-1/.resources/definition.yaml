@@ -1,0 +1,18 @@
+$kind: collection
+name: Clinic API
+variables:
+  - key: json_web_token_1459
+    secret: true
+    disabled: false
+  - key: json_web_token_0h6r
+    secret: true
+    disabled: false
+  - key: json_web_token_0jso
+    secret: true
+    disabled: false
+  - key: json_web_token_16g5
+    secret: true
+    disabled: false
+  - key: json_web_token_178h
+    secret: true
+    disabled: false

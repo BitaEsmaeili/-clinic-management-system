@@ -1,0 +1,8 @@
+$kind: http-request
+url: http://127.0.0.1:8000/api/patients/me/
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_178h}}"
+order: 6000
